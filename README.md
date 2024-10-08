@@ -4,25 +4,45 @@ A modified Anki card template that supports **two vocabulary definitions per car
 
 ### Fields Required for this template:
 1: Sentkanji
+
 2: SentFurigana
+
 3: SentEng
+
 4: SentAudio
+
 5: VocabKanji
+
 6: VocabFurigana
+
 7: VocabPitchPattern
+
 8: VocabPitchNum
+
 9: VocabDef
+
 10: VocabAudio
+
 11: VocabKanji2
+
 12: VocabFurigana2
+
 13: VocabPitchPattern2
+
 14: VocabPitchNum2
+
 15: VocabDef2
+
 16: VocabAudio2
+
 17: Image
+
 18: Notes
+
 19: MorphManFocus
+
 20: MakeProduction Card
+
 
 ## Night Mode:
 ![image](https://github.com/user-attachments/assets/05c6b96f-d704-4ede-9688-66bb5bf005ea)
