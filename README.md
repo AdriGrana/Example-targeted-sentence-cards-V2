@@ -25,7 +25,7 @@ A modified Anki card template that supports **two vocabulary definitions per car
 20: MakeProduction Card
 
 ## Installing Tempalte
-You can either copy the code from here and add the notes manually or just download [this example deck from AnkiWeb]{https://ankiweb.net/shared/info/2049566114?cb=1728411235877} which will automatically copy all the notes and code over which you then can use on your cards.
+You can either copy the code from here and add the notes manually or just download [this example deck from AnkiWeb](https://ankiweb.net/shared/info/2049566114?cb=1728411235877) which will automatically copy all the notes and code over which you then can use on your cards.
 
 ## Night Mode:
 ![image](https://github.com/user-attachments/assets/05c6b96f-d704-4ede-9688-66bb5bf005ea)
