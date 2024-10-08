@@ -209,7 +209,7 @@ div.ensentence>a.hint:hover {
 
 .definitions,
 .notes {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 /* Tags */
@@ -508,24 +508,39 @@ div[contenteditable="true"] {
 
 /* Details */
 
+/* Day Mode (default) */
 details,
 .headword_section {
-    background-color: hsl(0deg 80% 50% / 3%);
+    background-color: #fff1e3;
     border-radius: 4px;
     padding: 3px;
     margin-block-end: 0.4rem;
-    border: 1px solid hsl(0deg 80% 50% / 15%);
-    ;
+    border: 1px solid #6e3900; 
 }
 
 summary {
     font-size: 18px;
-    color: hsl(0 80% 10% / 70%);
+    color: #000000; /* Black text for contrast in day mode */
     font-weight: 500;
     user-select: none;
 }
 
-/* Night Mode */
+/* Night Mode - Dark blue background */
+.nightMode details,
+.nightMode .headword_section {
+    background-color: #00253b; /* Dark blue background */
+    border-radius: 4px;
+    padding: 3px;
+    margin-block-end: 0.4rem;
+    border: 1px solid #001a27; /* Slightly darker border */
+}
+
+.nightMode summary {
+    font-size: 18px;
+    color: #ffffff; /* White text for contrast in night mode */
+    font-weight: 500;
+    user-select: none;
+}
 
 .nightMode.card {
     background-color: #2f2f31;
@@ -646,3 +661,4 @@ summary {
     content: "; ";
     color: #f6a192;
 }
+
