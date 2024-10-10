@@ -60,11 +60,11 @@ Japanese Sentence Card Template by Adrian Grana with support for 2 words based o
 
     <footer>
         {{#SentKanji}}
-        <a href="https://simplytranslate.org/?engine=google&text={{text:kanji:SentKanji}}&sl=ja&tl=en" title="Translate with SimplyTranslate">Translate</a>
-        <a href="https://jisho.org/search?keyword={{text:kanji:SentKanji}}" title="Sentence on Jisho">Jisho</a>
-        <a href="https://www.google.co.jp/search?q={{text:kanji:SentKanji}}&tbm=isch" title="Search images">Images</a>
+        <a href="https://www.deepl.com/en/translator#ja/{{text:kanji:SentKanji}}&sl=ja&tl=en" title="Translate with SimplyTranslate">Translate</a>
         {{/SentKanji}}
         {{#VocabKanji}}
+        <a href="https://jisho.org/search?keyword={{text:kanji:VocabKanji}}" title="Sentence on Jisho">Jisho</a>
+        <a href="https://www.google.co.jp/search?q={{text:kanji:VocabKanji}}&tbm=isch" title="Search images">Images</a>
         <a href="http://www.weblio.jp/content/{{text:VocabKanji}}" title="Vocab on Weblio">Weblio</a>
         <a href="https://wadoku.de/search/?q={{text:VocabKanji}}" title="Vocab on Wadoku">Wadoku</a>
         {{/VocabKanji}}
