@@ -1,5 +1,6 @@
 <!--
-Japanese Sentence Card Template by Adrian Grana with support for 2 words based on mpvacious cards, version 15.0
+Japanese Sentence Card Template by Adrian Grana with support for 2 words based on mpvacious cards version 15.0
+Version 0.8
 -->
 
 <div class="wrap">
@@ -18,7 +19,7 @@ Japanese Sentence Card Template by Adrian Grana with support for 2 words based o
 
     {{#VocabDef}}
     <details open class="headword_section">
-        <summary>Vocabulary</summary>
+        <summary>一番目の単語</summary>
         <div class="vocab">
             <span id="vocab-audio">{{VocabAudio}}</span>
             <div class="reading" id="pitchpattern">{{VocabPitchPattern}}{{^VocabPitchPattern}}{{text:kana:VocabFurigana}}{{/VocabPitchPattern}}</div>
@@ -31,7 +32,7 @@ Japanese Sentence Card Template by Adrian Grana with support for 2 words based o
 
     {{#VocabDef2}}
     <details open class="headword_section">
-        <summary>Vocabulary 2</summary>
+        <summary>二番目の単語</summary>
         <div class="vocab">
             <span id="vocab-audio2">{{VocabAudio2}}</span>
             <div class="reading" id="pitchpattern2">{{VocabPitchPattern2}}{{^VocabPitchPattern2}}{{text:kana:VocabFurigana2}}{{/VocabPitchPattern2}}</div>
@@ -44,14 +45,14 @@ Japanese Sentence Card Template by Adrian Grana with support for 2 words based o
 
     {{#Notes}}
     <details open class="notes">
-        <summary>Notes</summary>
+        <summary>注</summary>
         <div>{{furigana:Notes}}</div>
     </details>
     {{/Notes}}
 
     {{#Image}}
     <details open class="images-details">
-        <summary>Image</summary>
+        <summary>画像</summary>
         <div class="images">{{Image}}</div>
     </details>
     {{/Image}}
@@ -75,7 +76,7 @@ Japanese Sentence Card Template by Adrian Grana with support for 2 words based o
     function tweakRevealText() {
         const elem = document.querySelector("div.ensentence > a.hint");
         if (elem) {
-            elem.innerText = "Reveal English translation";
+            elem.innerText = "英訳を表示";
         }
     }
 
