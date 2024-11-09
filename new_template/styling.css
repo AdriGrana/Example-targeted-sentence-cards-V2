@@ -52,13 +52,14 @@ strong {
 .jpsentence b,
 .jpsentence strong {
     color: #f026cb;
+    font-weight: 600;
 }
 
 .card {
     background-color: #fffaf0;
     color: #2a1b0a;
     font-family:
-        "Noto Serif",
+        "Noto Sans JP Light",
         "Noto Serif CJK JP",
         "IPAexMincho",
         "Yu Mincho",
@@ -175,8 +176,9 @@ header>div:not(:last-child) {
     font-size: 35px;
 }
 
-.jpsentence b {
-    display: inline-block;
+/* Apply red underline color to all elements within .jpsentence */
+.jpsentence * {
+    text-decoration-color: red;
 }
 
 /* Hide front side when the back is shown. */
@@ -661,4 +663,3 @@ summary {
     content: "; ";
     color: #f6a192;
 }
-

@@ -8,10 +8,11 @@ Version 0.8
 
     <div class="sent-center">
         <div class="jpsentence Japanese" lang="ja">
-            <div class="background" style="display: inline;">{{furigana:SentFurigana}}{{^SentFurigana}}{{furigana:SentKanji}}{{/SentFurigana}}</div>
-            <div class="overlay" style="display: inline;">{{edit:furigana:SentFurigana}}{{^SentFurigana}}{{edit:furigana:SentKanji}}{{/SentFurigana}}</div>
-            <span id="sent-audio" style="display: inline;">{{SentAudio}}</span>
-        </div>        
+            <div class="background" style="display: inline;">
+                {{furigana:SentFurigana}}{{^SentFurigana}}{{furigana:SentKanji}}{{/SentFurigana}}</div>
+            <div class="overlay" style="display: inline;">
+                {{edit:furigana:SentFurigana}}{{^SentFurigana}}{{edit:furigana:SentKanji}}{{/SentFurigana}}</div>
+        </div>
         {{#SentEng}}
         <div class="ensentence" lang="en">{{hint:SentEng}}</div>
         {{/SentEng}}
@@ -19,23 +20,25 @@ Version 0.8
 
     {{#VocabDef}}
     <details open class="headword_section">
-        <summary>一番目の単語</summary>
+        <summary>一つ目の単語</summary>
         <div class="vocab">
             <span id="vocab-audio">{{VocabAudio}}</span>
-            <div class="reading" id="pitchpattern">{{VocabPitchPattern}}{{^VocabPitchPattern}}{{text:kana:VocabFurigana}}{{/VocabPitchPattern}}</div>
+            <div class="reading" id="pitchpattern">
+                {{VocabPitchPattern}}{{^VocabPitchPattern}}{{text:kana:VocabFurigana}}{{/VocabPitchPattern}}</div>
             {{#VocabPitchNum}}<span class="tags" id="pitchnum">{{text:VocabPitchNum}}</span>{{/VocabPitchNum}}
             {{#VocabKanji}}<div class="target_word">{{text:kanji:VocabKanji}}</div>{{/VocabKanji}}
         </div>
         <div class="definitions">{{edit:furigana:VocabDef}}</div>
-    </details>    
+    </details>
     {{/VocabDef}}
 
     {{#VocabDef2}}
     <details open class="headword_section">
-        <summary>二番目の単語</summary>
+        <summary>二つ目の単語</summary>
         <div class="vocab">
             <span id="vocab-audio2">{{VocabAudio2}}</span>
-            <div class="reading" id="pitchpattern2">{{VocabPitchPattern2}}{{^VocabPitchPattern2}}{{text:kana:VocabFurigana2}}{{/VocabPitchPattern2}}</div>
+            <div class="reading" id="pitchpattern2">
+                {{VocabPitchPattern2}}{{^VocabPitchPattern2}}{{text:kana:VocabFurigana2}}{{/VocabPitchPattern2}}</div>
             {{#VocabPitchNum2}}<span class="tags" id="pitchnum2">{{text:VocabPitchNum2}}</span>{{/VocabPitchNum2}}
             {{#VocabKanji2}}<div class="target_word">{{text:kanji:VocabKanji2}}</div>{{/VocabKanji2}}
         </div>
@@ -43,12 +46,17 @@ Version 0.8
     </details>
     {{/VocabDef2}}
 
-    {{#Notes}}
     <details open class="notes">
         <summary>注</summary>
-        <div>{{furigana:Notes}}</div>
+        <div style="display: flex; align-items: center;">
+            {{#Notes}}
+            <div style="margin-right: 10px;">{{furigana:Notes}}</div>
+            {{/Notes}}
+            {{#SentAudio}}
+            <span id="sent-audio">{{SentAudio}}</span>
+            {{/SentAudio}}
+        </div>
     </details>
-    {{/Notes}}
 
     {{#Image}}
     <details open class="images-details">
@@ -61,7 +69,8 @@ Version 0.8
 
     <footer>
         {{#SentKanji}}
-        <a href="https://www.deepl.com/en/translator#ja/{{text:kanji:SentKanji}}&sl=ja&tl=en" title="Translate with SimplyTranslate">Translate</a>
+        <a href="https://www.deepl.com/en/translator#ja/{{text:kanji:SentKanji}}&sl=ja&tl=en"
+            title="Translate with SimplyTranslate">Translate</a>
         {{/SentKanji}}
         {{#VocabKanji}}
         <a href="https://jisho.org/search?keyword={{text:kanji:VocabKanji}}" title="Sentence on Jisho">Jisho</a>
@@ -136,16 +145,16 @@ Version 0.8
     }
 
     function paintTargetWordBack(index, color) {
-    const wordElementsOverlay = document.querySelectorAll(".overlay b, .overlay strong");
-    const wordElementsBackground = document.querySelectorAll(".background b, .background strong");
-    
-    if (wordElementsOverlay.length >= index) {
-        wordElementsOverlay[index - 1].style.color = color;
-    }
-    
-    if (wordElementsBackground.length >= index) {
-        wordElementsBackground[index - 1].style.color = color;
-    }
+        const wordElementsOverlay = document.querySelectorAll(".overlay b, .overlay strong");
+        const wordElementsBackground = document.querySelectorAll(".background b, .background strong");
+
+        if (wordElementsOverlay.length >= index) {
+            wordElementsOverlay[index - 1].style.color = color;
+        }
+
+        if (wordElementsBackground.length >= index) {
+            wordElementsBackground[index - 1].style.color = color;
+        }
     }
 
     function odaka(index, pitch_num) {
