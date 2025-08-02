@@ -5,7 +5,7 @@ This is a full overhaul of the original [Example Targeted Sentence Cards](https:
 
 ---
 
-## ✨ Features
+## Features
 
 - Support for **two vocabulary targets** per card  
 - Grouped display of **word, pitch accent, audio, and definition**
@@ -23,47 +23,7 @@ This is a full overhaul of the original [Example Targeted Sentence Cards](https:
 
 ---
 
-## 🧠 Required Fields
-
-Please ensure your note type includes **all** of the following fields:
-
-- `SentKanji`  
-- `SentFurigana`  
-- `SentEng`  
-- `SentAudio`  
-- `VocabKanji`  
-- `VocabFurigana`  
-- `VocabReading`  
-- `VocabPitchPattern`  
-- `VocabPitchCategory`  
-- `VocabPitchNum`  
-- `VocabDef`  
-- `VocabAudio`  
-- `VocabKanji2`  
-- `VocabFurigana2`  
-- `VocabReading2`  
-- `VocabPitchPattern2`  
-- `VocabPitchCategory2`  
-- `VocabPitchNum2`  
-- `VocabDef2`  
-- `VocabAudio2`  
-- `Image`  
-- `Notes`  
-- `Frequency`
-
----
-
-## 📦 Installation
-
-To install the template, you can:
-
-- Manually copy and paste the template code and fields into your collection  
-**OR**  
-- Download the [example deck from AnkiWeb](https://ankiweb.net/shared/info/2049566114?cb=1728411235877) to import everything (templates, styling, and example cards)
-
----
-
-## 🌙 Night Mode
+## Night Mode
 
 **Front:**
 
@@ -75,7 +35,7 @@ To install the template, you can:
 
 ---
 
-## ☀️ Day Mode
+## Day Mode
 
 **Front:**
 
@@ -84,3 +44,50 @@ To install the template, you can:
 **Back:**
 
 ![Day Back](https://github.com/user-attachments/assets/2d7208d1-9c35-41c9-9f9d-8a0d8cea30c3)
+
+---
+
+## Required Fields
+
+Make sure your note type includes all of the following fields:
+
+### Sentence fields
+- `SentKanji` — Japanese sentence with kanji (used on front of card)
+- `SentFurigana` — Sentence with furigana tags for reading assistance
+- `SentEng` — English translation of the sentence
+- `SentAudio` — Audio of the full sentence
+
+### Vocabulary target 1
+- `VocabKanji` — First target word (kanji form)
+- `VocabFurigana` — First target word with furigana
+- `VocabReading` — Kana-only reading of the first word
+- `VocabPitchPattern` — Pitch accent pattern string for display
+- `VocabPitchCategory` — One of: heiban, atamadaka, nakadaka, odaka, kifuku
+- `VocabPitchNum` — Numeric pitch drop location for coloring
+- `VocabDef` — Definition for the first word
+- `VocabAudio` — Audio clip of the first word
+
+### Vocabulary target 2 (optional)
+- `VocabKanji2` — Second target word (kanji form)
+- `VocabFurigana2` — Second target word with furigana
+- `VocabReading2` — Kana-only reading of the second word
+- `VocabPitchPattern2` — Pitch accent pattern string for second word
+- `VocabPitchCategory2` — Pitch accent category for second word
+- `VocabPitchNum2` — Numeric pitch drop location for second word
+- `VocabDef2` — Definition for the second word
+- `VocabAudio2` — Audio clip of the second word
+
+### Extra
+- `Image` — An optional image or GIF for visual context
+- `Notes` — Personal notes or additional comments
+- `Frequency` — Frequency data used for styling or sorting
+
+---
+
+## Installation
+
+To install the template, you can:
+
+- Manually copy and paste the template code and fields into your collection  
+**OR**  
+- Download the [example deck from AnkiWeb](https://ankiweb.net/shared/info/2049566114?cb=1728411235877) to import everything (templates, styling, and example cards)
