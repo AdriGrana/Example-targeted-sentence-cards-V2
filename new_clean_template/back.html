@@ -1,0 +1,153 @@
+<div class="card">
+
+  <!-- Sentence with furigana -->
+  <div id="sentence-back" class="sentence Japanese">{{furigana:SentFurigana}}</div>
+
+  <!-- ── on-demand EN translation (button + reveal) ─────────────────── -->
+{{#SentEng}}
+  <div class="ensentence" lang="en">
+    <a href="#" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'; return false;">英訳を表示</a>
+    <span style="display:none;">{{SentEng}}</span>
+  </div>
+{{/SentEng}}
+
+  <!-- hidden helpers for colouring (word 1) -->
+  <span id="pitchnum_hidden1" style="display:none;">{{VocabPitchNum}}</span>
+  <span id="kanaword_hidden1" style="display:none;">{{kana:VocabFurigana}}</span>
+  <span id="kanji_hidden1"    style="display:none;">{{text:kanji:VocabKanji}}</span>
+  <span id="pitchcat_hidden1" style="display:none;">{{VocabPitchCategory}}</span>
+
+
+  <!-- hidden helpers for colouring (word 2) -->
+  <span id="pitchnum_hidden2" style="display:none;">{{VocabPitchNum2}}</span>
+  <span id="kanaword_hidden2" style="display:none;">{{kana:VocabFurigana2}}</span>
+  <span id="kanji_hidden2"    style="display:none;">{{text:kanji:VocabKanji2}}</span>
+  <span id="pitchcat_hidden2" style="display:none;">{{VocabPitchCategory2}}</span>
+
+<!-- ── vocab block #1 ─────────────────────────────── -->
+{{#VocabDef}}
+  <div class="vocab-block">
+    <div class="vocab-header">
+      <span class="vocab-word">{{furigana:VocabFurigana}}</span>
+
+      {{#VocabPitchPattern}}
+        <span class="pitch-pattern">{{VocabPitchPattern}}</span>
+      {{/VocabPitchPattern}}
+      {{^VocabPitchPattern}}
+        <span class="pitch-pattern">{{text:kana:VocabFurigana}}</span>
+      {{/VocabPitchPattern}}
+
+      {{VocabAudio}}
+    </div>
+    <div class="vocab-def">{{VocabDef}}</div>
+  </div>
+{{/VocabDef}}
+
+<!-- ── vocab block #2 (same idea) ─────────────────── -->
+{{#VocabDef2}}
+  <div class="vocab-block">
+    <div class="vocab-header">
+      <span class="vocab-word">{{furigana:VocabFurigana2}}</span>
+
+      {{#VocabPitchPattern2}}
+        <span class="pitch-pattern">{{VocabPitchPattern2}}</span>
+      {{/VocabPitchPattern2}}
+      {{^VocabPitchPattern2}}
+        <span class="pitch-pattern">{{text:kana:VocabFurigana2}}</span>
+      {{/VocabPitchPattern2}}
+
+      {{VocabAudio2}}
+    </div>
+    <div class="vocab-def">{{VocabDef2}}</div>
+  </div>
+{{/VocabDef2}}
+
+  <!-- Image / GIF -->
+  {{#Image}}
+    <div class="image-block">{{Image}}</div>
+  {{/Image}}
+
+  <!-- Notes -->
+  {{#Notes}}
+    <div class="notes">{{Notes}}</div>
+  {{/Notes}}
+
+  <!-- Sentence audio -->
+  <div class="sentence-audio">{{SentAudio}}</div>
+</div>
+
+<!-- ─── footer links ─── -->
+<footer class="card-footer">
+  {{#SentKanji}}
+    <a href="https://simplytranslate.org/?engine=google&text={{text:kanji:SentKanji}}&sl=ja&tl=en" title="Translate with SimplyTranslate">翻訳</a>
+    <a href="https://jisho.org/search?keyword={{text:kanji:SentKanji}}" title="Sentence on Jisho">辞書</a>
+    <a href="https://www.google.co.jp/search?q={{text:kanji:SentKanji}}&tbm=isch" title="Search images">画像</a>
+  {{/SentKanji}}
+
+  {{#VocabKanji}}
+    <a href="http://www.weblio.jp/content/{{text:VocabKanji}}" title="Vocab on Weblio">Weblio国語辞典</a>
+    <a href="https://wadoku.de/search/?q={{text:VocabKanji}}" title="Vocab on Wadoku">和独辞典</a>
+  {{/VocabKanji}}
+</footer>
+
+<!-- ────────── colouring script ────────── -->
+<script>
+(function () {
+  const colourFromCategory = (cat) => {
+    switch (cat) {
+      case 'heiban':      return '#3366CC';
+      case 'atamadaka':   return 'red';
+      case 'nakadaka':    return '#ff6207';
+      case 'odaka':       return 'green';
+      case 'kifuku':      return '#8f3bdd';
+      default:            return 'yellow';
+    }
+  };
+
+  function colourFor(pitchNum, moraCnt) {
+    if (pitchNum === 0) return '#3366CC';
+    if (pitchNum === 1) return 'red';
+    if (pitchNum > 1 && moraCnt === pitchNum) return 'green';
+    if (pitchNum === null) return 'yellow';
+    return '#ff6207';
+  }
+
+  function colourBack(idx) {
+    const catRaw = document.getElementById(`pitchcat_hidden${idx}`)?.textContent || '';
+    const primaryCat = catRaw.split(',')[0].trim().toLowerCase();
+    let colour = primaryCat ? colourFromCategory(primaryCat) : null;
+
+    if (!colour) {
+      const pnRaw = document.getElementById(`pitchnum_hidden${idx}`)?.textContent || '';
+      const kmRaw = document.getElementById(`kanaword_hidden${idx}`)?.textContent || '';
+      const m     = pnRaw.match(/\d+/);
+      colour = m && kmRaw
+        ? colourFor(+m[0], kmRaw.replace(/[ャュョゃゅょ]/g, '').length)
+        : colourFor(null, 0);
+    }
+
+    const sentence = document.getElementById('sentence-back');
+    if (!sentence) return;
+
+    const bolds = sentence.querySelectorAll('b, strong');
+    if (bolds.length >= idx) {
+      bolds[idx - 1].style.color = colour;
+      return;
+    }
+
+    const kjWord = document.getElementById(`kanji_hidden${idx}`)?.textContent.trim() || '';
+    const rubies = sentence.querySelectorAll('ruby');
+    for (const ruby of rubies) {
+      const rbText = (ruby.firstChild?.textContent || '').trim();
+      if (rbText === kjWord) {
+        ruby.style.color = colour;
+        break;
+      }
+    }
+  }
+
+  colourBack(1);
+  colourBack(2);
+})();
+</script>
+

@@ -1,0 +1,192 @@
+<!--
+Japanese Sentence Card Template by Adrian Grana with support for 2 words based on mpvacious cards version 15.0
+Version 0.8
+-->
+
+<div class="wrap">
+    <div class="fside">{{FrontSide}}</div>
+
+    <div class="sent-center">
+        <div class="jpsentence Japanese" lang="ja">
+            <div class="background" style="display: inline;">
+                {{furigana:SentFurigana}}{{^SentFurigana}}{{furigana:SentKanji}}{{/SentFurigana}}</div>
+            <div class="overlay" style="display: inline;">
+                {{edit:furigana:SentFurigana}}{{^SentFurigana}}{{edit:furigana:SentKanji}}{{/SentFurigana}}</div>
+        </div>
+        {{#SentEng}}
+        <div class="ensentence" lang="en">{{hint:SentEng}}</div>
+        {{/SentEng}}
+    </div>
+
+    {{#VocabDef}}
+    <details open class="headword_section">
+        <summary>一つ目の単語</summary>
+        <div class="vocab">
+            <span id="vocab-audio">{{VocabAudio}}</span>
+            <div class="reading" id="pitchpattern">
+                {{VocabPitchPattern}}{{^VocabPitchPattern}}{{text:kana:VocabFurigana}}{{/VocabPitchPattern}}</div>
+            {{#VocabPitchNum}}<span class="tags" id="pitchnum">{{text:VocabPitchNum}}</span>{{/VocabPitchNum}}
+            {{#VocabKanji}}<div class="target_word">{{text:kanji:VocabKanji}}</div>{{/VocabKanji}}
+        </div>
+        <div class="definitions">{{edit:furigana:VocabDef}}</div>
+    </details>
+    {{/VocabDef}}
+
+    {{#VocabDef2}}
+    <details open class="headword_section">
+        <summary>二つ目の単語</summary>
+        <div class="vocab">
+            <span id="vocab-audio2">{{VocabAudio2}}</span>
+            <div class="reading" id="pitchpattern2">
+                {{VocabPitchPattern2}}{{^VocabPitchPattern2}}{{text:kana:VocabFurigana2}}{{/VocabPitchPattern2}}</div>
+            {{#VocabPitchNum2}}<span class="tags" id="pitchnum2">{{text:VocabPitchNum2}}</span>{{/VocabPitchNum2}}
+            {{#VocabKanji2}}<div class="target_word">{{text:kanji:VocabKanji2}}</div>{{/VocabKanji2}}
+        </div>
+        <div class="definitions">{{edit:furigana:VocabDef2}}</div>
+    </details>
+    {{/VocabDef2}}
+
+    <details open class="notes">
+        <summary>注</summary>
+        <div style="display: flex; align-items: center;">
+            {{#Notes}}
+            <div style="margin-right: 10px;">{{furigana:Notes}}</div>
+            {{/Notes}}
+            {{#SentAudio}}
+            <span id="sent-audio">{{SentAudio}}</span>
+            {{/SentAudio}}
+        </div>
+    </details>
+
+    {{#Image}}
+    <details open class="images-details">
+        <summary>画像</summary>
+        <div class="images">{{Image}}</div>
+    </details>
+    {{/Image}}
+
+    <hr>
+
+    <footer>
+        {{#SentKanji}}
+        <a href="https://www.deepl.com/en/translator#ja/{{text:kanji:SentKanji}}&sl=ja&tl=en"
+            title="Translate with SimplyTranslate">Translate</a>
+        {{/SentKanji}}
+        {{#VocabKanji}}
+        <a href="https://jisho.org/search?keyword={{text:kanji:VocabKanji}}" title="Sentence on Jisho">Jisho</a>
+        <a href="https://www.google.co.jp/search?q={{text:kanji:VocabKanji}}&tbm=isch" title="Search images">Images</a>
+        <a href="http://www.weblio.jp/content/{{text:VocabKanji}}" title="Vocab on Weblio">Weblio</a>
+        <a href="https://wadoku.de/search/?q={{text:VocabKanji}}" title="Vocab on Wadoku">Wadoku</a>
+        {{/VocabKanji}}
+    </footer>
+</div> <!-- /wrap -->
+
+<script>
+    function tweakRevealText() {
+        const elem = document.querySelector("div.ensentence > a.hint");
+        if (elem) {
+            elem.innerText = "英訳を表示";
+        }
+    }
+
+    function removePitchBrackets() {
+        const tags = document.getElementById("pitchnum");
+        if (tags !== null) {
+            tags.innerHTML = tags.innerHTML.replace(/[\[\]]/g, "");
+        }
+    }
+
+    function removeNoPitchAccentDataText() {
+        const has_no_data = (tag) => tag.innerText.toLowerCase().includes("no pitch accent");
+        const pitch_num = document.getElementById("pitchnum");
+        const pitch_pattern = document.getElementById("pitchpattern");
+        const pitch_num_inside_html = document.querySelector(".pitch_number");
+        if (pitch_num && has_no_data(pitch_num)) {
+            pitch_num.remove();
+        }
+        if (pitch_pattern && has_no_data(pitch_pattern)) {
+            pitch_pattern.innerHTML = `{{text:kana:VocabFurigana}}`;
+        }
+        if (pitch_num && pitch_num_inside_html) {
+            pitch_num.remove();
+        }
+    }
+
+    function removeAudioIfMarkedX() {
+        const pr = document.getElementById("vocab-audio");
+        if (pr && pr.innerText.match(/^[x×]/i)) {
+            pr.style.display = "none";
+        }
+    }
+
+    function markPitchForWordBack(index) {
+        let pitchNumberElement = document.getElementById(`pitchnum_hidden${index}`);
+        if (!pitchNumberElement) return;
+
+        let pitchNumber = pitchNumberElement.innerHTML.match(/\d+/);
+        if (!pitchNumber) {
+            paintTargetWordBack(index, "#A020F0"); // Default color when no valid number found
+            return;
+        }
+        pitchNumber = Number(pitchNumber);
+
+        // Decide color based on pitch number
+        if (pitchNumber == 0) {
+            paintTargetWordBack(index, "#3366CC"); // Blue for 平板
+        } else if (pitchNumber == 1) {
+            paintTargetWordBack(index, "red"); // Red for 頭高
+        } else if (pitchNumber > 1) {
+            if (odaka(index, pitchNumber)) {
+                paintTargetWordBack(index, "green"); // Green for 尾高
+            } else {
+                paintTargetWordBack(index, "#ff6207"); // Orange for 中高
+            }
+        }
+    }
+
+    function paintTargetWordBack(index, color) {
+        const wordElementsOverlay = document.querySelectorAll(".overlay b, .overlay strong");
+        const wordElementsBackground = document.querySelectorAll(".background b, .background strong");
+
+        if (wordElementsOverlay.length >= index) {
+            wordElementsOverlay[index - 1].style.color = color;
+        }
+
+        if (wordElementsBackground.length >= index) {
+            wordElementsBackground[index - 1].style.color = color;
+        }
+    }
+
+    function odaka(index, pitch_num) {
+        const vocab_kana_elem = document.getElementById(`kanaword_hidden${index}`);
+        if (!vocab_kana_elem) return false;
+
+        const n_moras = vocab_kana_elem.innerHTML.replace(/[ャュョゃゅょ]/g, "").length;
+        return n_moras == pitch_num;
+    }
+
+    function splitTagDiv() {
+        const header = document.querySelector("header");
+        if (!header) return;
+        const split = `{{Tags}}`.split(" ");
+
+        header.innerHTML = "";
+
+        for (const tag of split) {
+            if (tag.length < 1) continue;
+            const tag_elem = document.createElement("div");
+            tag_elem.className = "tags";
+            tag_elem.innerHTML = tag;
+            header.appendChild(tag_elem);
+        }
+    }
+
+    // Call functions for both words on backside
+    markPitchForWordBack(1);
+    markPitchForWordBack(2);
+    splitTagDiv();
+    removePitchBrackets();
+    tweakRevealText();
+    removeNoPitchAccentDataText();
+    removeAudioIfMarkedX();
+</script>

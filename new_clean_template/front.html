@@ -1,0 +1,63 @@
+<div class="card">
+  <!-- Sentence with one or two bolded target words -->
+  <div class="front-sentence Japanese">{{furigana:SentKanji}}</div>
+
+  <!-- hidden helpers -->
+  <div id="pitchnum_hidden1" style="display:none;">{{VocabPitchNum}}</div>
+  <div id="kanaword_hidden1" style="display:none;">{{kana:VocabFurigana}}</div>
+  <div id="pitchcat_hidden1" style="display:none;">{{VocabPitchCategory}}</div>
+
+
+  <div id="pitchnum_hidden2" style="display:none;">{{VocabPitchNum2}}</div>
+  <div id="kanaword_hidden2" style="display:none;">{{kana:VocabFurigana2}}</div>
+  <div id="pitchcat_hidden2" style="display:none;">{{VocabPitchCategory2}}</div>
+</div>
+
+<script>
+(function () {
+  // direct mapping from category name → colour
+  const colourFromCategory = (cat) => {
+    switch (cat) {
+      case 'heiban':      return '#3366CC';   // blue
+      case 'atamadaka':   return 'red';
+      case 'nakadaka':    return '#ff6207';   // orange
+      case 'odaka':       return 'green';
+      case 'kifuku':      return '#8f3bdd';
+      default:            return 'yellow';    // unknown / not set
+    }
+  };
+
+  // fallback you already had (kept for cards that still rely on pitch-number)
+  function colourFor(pitchNum, moraCnt) {
+    if (pitchNum === 0) return '#3366CC';
+    if (pitchNum === 1) return 'red';
+    if (pitchNum > 1 && moraCnt === pitchNum) return 'green';
+    if (pitchNum === null) return 'yellow';
+    return '#ff6207';
+  }
+
+  function colourFront(idx) {
+    // ① try the new category field
+    const catRaw = document.getElementById(`pitchcat_hidden${idx}`)?.textContent || '';
+    const primaryCat = catRaw.split(',')[0].trim().toLowerCase();
+    let colour = primaryCat ? colourFromCategory(primaryCat) : null;
+
+    // ② fallback to old logic when no category supplied
+    if (!colour) {
+      const pnRaw = document.getElementById(`pitchnum_hidden${idx}`)?.textContent || '';
+      const km    = document.getElementById(`kanaword_hidden${idx}`)?.textContent || '';
+      const m     = pnRaw.match(/\d+/);
+      colour = m && km
+        ? colourFor(+m[0], km.replace(/[ャュョゃゅょ]/g, '').length)
+        : colourFor(null, 0);
+    }
+
+    const bolds = document.querySelectorAll('.front-sentence b, .front-sentence strong');
+    if (bolds.length >= idx) bolds[idx - 1].style.color = colour;
+  }
+
+  colourFront(1);
+  colourFront(2);
+})();
+</script>
+
